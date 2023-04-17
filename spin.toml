@@ -1,0 +1,15 @@
+spin_manifest_version = "1"
+authors = ["Ryan Levick <ryan.levick@fermyon.com>"]
+description = "The most minimal Spin HTTP handler"
+name = "spin-min"
+trigger = { type = "http", base = "/" }
+version = "0.1.0"
+
+[[component]]
+id = "spin-min"
+source = "target/wasm32-unknown-unknown/release/min.wasm"
+[component.trigger]
+route = "/..."
+[component.build]
+command = "CARGO_TARGET_DIR='./target' cargo component build --target wasm32-unknown-unknown --release && wasm-tools strip ./target/wasm32-unknown-unknown/release/min.wasm -o ./target/wasm32-unknown-unknown/release/min.wasm"
+watch = ["src/**/*.rs", "Cargo.toml"]
